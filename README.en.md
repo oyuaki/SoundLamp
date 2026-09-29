@@ -11,7 +11,7 @@ The icon just changes quietly. No blinking, no animation, no notifications, no s
 
 ## Screenshots
 
-<!-- Images will live in docs/screenshots/ (see DESIGN_TODO.md). Uncomment once they are added.
+<!-- Images will live in docs/screenshots/ (see docs/DESIGN_TODO.md). Uncomment once they are added.
 | Silent | Sound on | Menu |
 | --- | --- | --- |
 | ![Silent](docs/screenshots/menubar-silent.png) | ![Sound on](docs/screenshots/menubar-audible.png) | ![Menu](docs/screenshots/menu.png) |
@@ -99,7 +99,9 @@ swift test
 | `App/` | Menu bar app (SwiftUI `MenuBarExtra`) |
 | `Sources/SoundLampCore/` | Core Audio monitoring and detection logic |
 | `Tests/SoundLampCoreTests/` | Unit tests, including device switching |
-| `App/Assets.xcassets/` | App icon and menu bar icons (SF Symbols are used until images are added) |
+| `App/Assets.xcassets/` | App icon and menu bar icons (exported PNGs) |
+| `Design/` | Icon source files (SVG) |
+| `scripts/` | Icon export (`export-icons.sh`) and release packaging (`package.sh`) |
 
 ## License
 

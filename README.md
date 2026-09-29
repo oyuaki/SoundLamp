@@ -11,7 +11,7 @@ Macの音量が「ちゃんと0か」を、メニューバーのアイコンで�
 
 ## スクリーンショット
 
-<!-- 画像は docs/screenshots/ に配置予定（DESIGN_TODO.md 参照）。配置後にコメントを外してください。
+<!-- 画像は docs/screenshots/ に配置予定（docs/DESIGN_TODO.md 参照）。配置後にコメントを外してください。
 | 無音 | 音あり | メニュー |
 | --- | --- | --- |
 | ![無音](docs/screenshots/menubar-silent.png) | ![音あり](docs/screenshots/menubar-audible.png) | ![メニュー](docs/screenshots/menu.png) |
@@ -99,7 +99,9 @@ swift test
 | `App/` | メニューバーアプリ（SwiftUI `MenuBarExtra`） |
 | `Sources/SoundLampCore/` | Core Audio の監視と判定ロジック |
 | `Tests/SoundLampCoreTests/` | ユニットテスト（デバイス切り替えを含む） |
-| `App/Assets.xcassets/` | アプリアイコン・メニューバーアイコン（未配置なら SF Symbols を使用） |
+| `App/Assets.xcassets/` | アプリアイコン・メニューバーアイコン（書き出し済みの PNG） |
+| `Design/` | アイコンの元データ（SVG） |
+| `scripts/` | アイコンの書き出し（`export-icons.sh`）、配布用パッケージの作成（`package.sh`） |
 
 ## ライセンス
 
