@@ -1,32 +1,32 @@
 # SoundLamp
 
-[English](README.en.md) | 日本語
+English | [日本語](README.ja.md)
 
-Macの音量が0かどうかを、メニューバーのアイコンで確認するアプリです。
+A menu bar app that shows whether your Mac's volume is at 0.
 
-| 状態 | アイコン |
+| State | Icon |
 | --- | --- |
-| 無音（音量0・ミュート） | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-silent-dark.svg"><img src="docs/images/icon-silent-light.svg" width="40" alt="無音"></picture> |
-| 音が出る | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-audible-dark.svg"><img src="docs/images/icon-audible-light.svg" width="40" alt="音が出る"></picture> |
-| イヤホン・ヘッドホン | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-headphones-dark.svg"><img src="docs/images/icon-headphones-light.svg" width="40" alt="イヤホン・ヘッドホン"></picture><br>音が出るときは中央に波形 |
+| Silent (volume 0 or muted) | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-silent-dark.svg"><img src="docs/images/icon-silent-light.svg" width="40" alt="Silent"></picture> |
+| Sound on | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-audible-dark.svg"><img src="docs/images/icon-audible-light.svg" width="40" alt="Sound on"></picture> |
+| Headphones | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-headphones-dark.svg"><img src="docs/images/icon-headphones-light.svg" width="40" alt="Headphones"></picture><br>Waveform in the center when sound is on |
 
-メニューには音量と出力デバイス名、「音量を0にする」「ログイン時に起動」があります。
+The menu shows the volume and output device, plus "Set Volume to 0" and "Launch at Login".
 
-macOS 13以降。
+Requires macOS 13 or later.
 
-## インストール
+## Install
 
-[Releases](https://github.com/oyuaki/SoundLamp/releases) から dmg をダウンロードし、`SoundLamp.app` をアプリケーションフォルダに入れてください。
+Download the dmg from [Releases](https://github.com/oyuaki/SoundLamp/releases) and move `SoundLamp.app` to Applications.
 
-署名していないため、初回は開けません。「システム設定」→「プライバシーとセキュリティ」で「このまま開く」を押すか、次を実行してください。
+The app is not signed, so macOS blocks it the first time. Click "Open Anyway" in System Settings → Privacy & Security, or run:
 
 ```sh
 xattr -dr com.apple.quarantine /Applications/SoundLamp.app
 ```
 
-## ビルド
+## Build
 
-Xcode 16以降と [XcodeGen](https://github.com/yonaskolb/XcodeGen) が必要です。
+Requires Xcode 16 or later and [XcodeGen](https://github.com/yonaskolb/XcodeGen).
 
 ```sh
 brew install xcodegen
@@ -34,9 +34,9 @@ xcodegen generate
 open SoundLamp.xcodeproj
 ```
 
-- テスト：`swift test`
-- 配布用の dmg/zip：`scripts/package.sh 1.0.0`
+- Tests: `swift test`
+- Release dmg/zip: `scripts/package.sh 1.0.0`
 
-## ライセンス
+## License
 
 [MIT](LICENSE)

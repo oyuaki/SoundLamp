@@ -67,7 +67,7 @@ SoundLamp に必要な画像の一覧です。ファイルを所定の場所に�
 
 ## 3. README 用スクリーンショット
 
-置き場所：`docs/screenshots/`（配置後、`README.md` と `README.en.md` のスクリーンショット欄のコメントを外す）
+置き場所：`docs/screenshots/`（配置後、`README.md` と `README.ja.md` のスクリーンショット欄のコメントを外す）
 
 | ファイル名 | 内容 | 推奨サイズ |
 | --- | --- | --- |
