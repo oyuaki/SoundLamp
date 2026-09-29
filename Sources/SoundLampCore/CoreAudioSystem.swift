@@ -131,13 +131,13 @@ public final class CoreAudioSystem: AudioSystem {
         addresses: [AudioObjectPropertyAddress],
         handler: @escaping () -> Void
     ) -> ObservationToken {
+        let queue = self.queue
         let block: AudioObjectPropertyListenerBlock = { _, _ in handler() }
         // Registration fails for properties the object lacks; only keep the ones that succeeded.
         let registered = addresses.filter { address in
             var address = address
             return AudioObjectAddPropertyListenerBlock(object, &address, queue, block) == noErr
         }
-        let queue = self.queue
         return ObservationToken {
             for var address in registered {
                 AudioObjectRemovePropertyListenerBlock(object, &address, queue, block)
