@@ -6,9 +6,9 @@ A menu bar app that shows whether your Mac's volume is at 0.
 
 | State | Icon |
 | --- | --- |
-| Silent (volume 0 or muted) | <img src="docs/screenshots/menubar-silent.png" height="24" alt="Silent"> Regular icon |
-| Sound on | <img src="docs/screenshots/menubar-audible.png" height="24" alt="Sound on"> Blue icon |
-| Headphones | Headphone icon (with a waveform when sound is on) |
+| Silent (volume 0 or muted) | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-silent-dark.svg"><img src="docs/images/icon-silent-light.svg" width="40" alt="Silent"></picture> |
+| Sound on | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-audible-dark.svg"><img src="docs/images/icon-audible-light.svg" width="40" alt="Sound on"></picture> |
+| Headphones | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-headphones-dark.svg"><img src="docs/images/icon-headphones-light.svg" width="40" alt="Headphones"></picture><br>Waveform in the center when sound is on |
 
 The menu shows the volume and output device, plus "Set Volume to 0" and "Launch at Login".
 

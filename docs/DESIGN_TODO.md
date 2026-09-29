@@ -9,8 +9,7 @@ SoundLamp に必要な画像の一覧です。ファイルを所定の場所に�
 
 - [x] メニューバーアイコン（無音／音あり）
 - [x] アプリアイコン（全サイズ）
-- [x] README 用スクリーンショット（無音／音あり）
-- [ ] README 用スクリーンショット（メニュー、ヘッドホン）
+- [x] README 用アイコン画像（`scripts/export-readme-icons.py` で `Design/` の SVG から `docs/images/` に生成）
 
 ## 1. メニューバーアイコン
 

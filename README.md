@@ -6,9 +6,9 @@ Macの音量が0かどうかを、メニューバーのアイコンで確認す�
 
 | 状態 | アイコン |
 | --- | --- |
-| 無音（音量0・ミュート） | <img src="docs/screenshots/menubar-silent.png" height="24" alt="無音"> 通常のアイコン |
-| 音が出る | <img src="docs/screenshots/menubar-audible.png" height="24" alt="音が出る"> 青いアイコン |
-| イヤホン・ヘッドホン | ヘッドホンのアイコン（音が出るときは中央に波形） |
+| 無音（音量0・ミュート） | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-silent-dark.svg"><img src="docs/images/icon-silent-light.svg" width="40" alt="無音"></picture> |
+| 音が出る | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-audible-dark.svg"><img src="docs/images/icon-audible-light.svg" width="40" alt="音が出る"></picture> |
+| イヤホン・ヘッドホン | <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/icon-headphones-dark.svg"><img src="docs/images/icon-headphones-light.svg" width="40" alt="イヤホン・ヘッドホン"></picture><br>音が出るときは中央に波形 |
 
 メニューには音量と出力デバイス名、「音量を0にする」「ログイン時に起動」があります。
 
