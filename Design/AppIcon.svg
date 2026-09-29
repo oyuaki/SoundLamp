@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>SoundLamp app icon</title>
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="0.82" y2="1">
+      <stop offset="0" stop-color="#1C2B4A"/>
+      <stop offset="0.52" stop-color="#101B32"/>
+      <stop offset="1" stop-color="#080F1F"/>
+    </linearGradient>
+    <linearGradient id="speaker" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E0E9F4"/>
+      <stop offset="1" stop-color="#91A7C3"/>
+    </linearGradient>
+    <linearGradient id="lamp" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#57C7FF"/>
+      <stop offset="0.55" stop-color="#0A84FF"/>
+      <stop offset="1" stop-color="#0874E4"/>
+    </linearGradient>
+    <linearGradient id="lampBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A84FF"/>
+      <stop offset="1" stop-color="#0754A8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.7" cy="0.38" r="0.49">
+      <stop offset="0" stop-color="#168EFF" stop-opacity="0.32"/>
+      <stop offset="0.55" stop-color="#0A84FF" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#0A84FF" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="tile">
+      <rect x="100" y="100" width="824" height="824" rx="185"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#tile)">
+    <rect x="100" y="100" width="824" height="824" fill="url(#night)"/>
+    <rect x="100" y="100" width="824" height="824" fill="url(#glow)"/>
+    <path d="M129 310C161 177 260 116 400 100h-115c-102 0-185 83-185 185v454c29-165 42-294 29-429Z" fill="#FFFFFF" opacity="0.035"/>
+    <path d="M100 748c134 94 302 125 489 86 142-29 251-93 335-192v282H100Z" fill="#020711" opacity="0.18"/>
+
+    <!-- A quiet speaker on the left. -->
+    <path d="M212 465c0-17 14-31 31-31h71l94-73c24-19 46-8 46 23v280c0 31-22 42-46 23l-94-73h-71c-17 0-31-14-31-31Z" fill="url(#speaker)"/>
+    <path d="M241 461h77l107-83c5-4 10-6 15-7-7-18-21-21-32-12l-94 73h-71c-17 0-31 14-31 31v118c0 10 5 19 12 25V478c0-9 8-17 17-17Z" fill="#FFFFFF" opacity="0.18"/>
+
+    <!-- The sound waves lead into the lamp's blue light. -->
+    <path d="M480 461c41 28 41 98 0 126" fill="none" stroke="#36ACFF" stroke-width="27" stroke-linecap="round"/>
+    <path d="M505 408c81 52 81 180 0 232" fill="none" stroke="#0A84FF" stroke-width="29" stroke-linecap="round"/>
+
+    <!-- A filled lamp remains legible independently of color. -->
+    <path d="M676 305c-76 0-137 59-137 132 0 51 26 84 57 112 16 14 23 29 23 49h114c0-20 7-35 23-49 31-28 57-61 57-112 0-73-61-132-137-132Z" fill="url(#lamp)"/>
+    <path d="M625 623h102v20c0 15-12 27-27 27h-48c-15 0-27-12-27-27Z" fill="url(#lampBase)"/>
+    <path d="M619 596h114v31H619Z" fill="#0A72DE"/>
+    <path d="M651 332c-43 11-76 49-81 96-3 26 4 49 17 70-4-17-5-34-2-51 8-48 39-84 81-101 14-6 14-21-1-18-5 1-9 2-14 4Z" fill="#FFFFFF" opacity="0.23"/>
+
+    <g fill="none" stroke="#45B7FF" stroke-width="24" stroke-linecap="round">
+      <path d="M676 254v-36"/>
+      <path d="M785 290l27-28"/>
+      <path d="M837 386h39"/>
+    </g>
+  </g>
+  <rect x="101.5" y="101.5" width="821" height="821" rx="183.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="3"/>
+</svg>

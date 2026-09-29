@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>SoundLamp app icon, simplified for small sizes</title>
+  <defs>
+    <linearGradient id="nightSmall" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#1C2B4A"/>
+      <stop offset="1" stop-color="#080F1F"/>
+    </linearGradient>
+    <linearGradient id="lampSmall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#56C7FF"/>
+      <stop offset="1" stop-color="#0A84FF"/>
+    </linearGradient>
+    <clipPath id="tileSmall">
+      <rect x="100" y="100" width="824" height="824" rx="185"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tileSmall)">
+    <rect x="100" y="100" width="824" height="824" fill="url(#nightSmall)"/>
+    <circle cx="696" cy="403" r="255" fill="#0A84FF" opacity="0.12"/>
+    <path d="M200 469c0-22 18-40 40-40h82l115-89c22-17 43-7 43 22v324c0 29-21 39-43 22l-115-89h-82c-22 0-40-18-40-40Z" fill="#C8D7E8"/>
+    <path d="M508 453c49 34 49 108 0 142" fill="none" stroke="#3EB3FF" stroke-width="43" stroke-linecap="round"/>
+    <path d="M538 388c93 63 93 209 0 272" fill="none" stroke="#0A84FF" stroke-width="45" stroke-linecap="round"/>
+    <path d="M700 291c-84 0-151 65-151 146 0 53 28 91 62 120 17 15 25 31 25 52h128c0-21 8-37 25-52 34-29 62-67 62-120 0-81-67-146-151-146Z" fill="url(#lampSmall)"/>
+    <path d="M636 609h128v43H636Z" fill="#076DCE"/>
+    <path d="M644 652h112v13c0 19-15 34-34 34h-44c-19 0-34-15-34-34Z" fill="#0758AA"/>
+  </g>
+</svg>
