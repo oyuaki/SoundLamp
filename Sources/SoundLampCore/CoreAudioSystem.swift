@@ -22,9 +22,11 @@ public final class CoreAudioSystem: AudioSystem {
 
     public func snapshot(of device: DeviceID) -> DeviceSnapshot? {
         guard isAlive(device) else { return nil }
+        let deviceName = name(of: device)
         let volumeAddress = volumeAddress(for: device)
         return DeviceSnapshot(
-            name: name(of: device),
+            name: deviceName,
+            outputKind: outputKind(of: device, name: deviceName),
             volume: volumeAddress.flatMap { readFloat(device, $0) },
             isMuted: readMute(device),
             canSetVolume: volumeAddress.map { isSettable(device, $0) } ?? false,
@@ -48,6 +50,57 @@ public final class CoreAudioSystem: AudioSystem {
         let status = AudioObjectGetPropertyData(device, &address, 0, nil, &size, &name)
         guard status == noErr, let name else { return nil }
         return name.takeRetainedValue() as String
+    }
+
+    private func outputKind(of device: DeviceID, name: String?) -> OutputDeviceKind {
+        if activeDataSourceKind(of: device) == kAudioStreamTerminalTypeHeadphones {
+            return .headphones
+        }
+        if outputStreams(of: device).contains(where: { stream in
+            let address = Self.address(kAudioStreamPropertyTerminalType, scope: kAudioObjectPropertyScopeGlobal)
+            return readUInt32(stream, address) == kAudioStreamTerminalTypeHeadphones
+        }) {
+            return .headphones
+        }
+        return Self.nameSuggestsHeadphones(name) ? .headphones : .other
+    }
+
+    /// Some Bluetooth devices omit terminal metadata, so known headphone naming is a fallback.
+    private static func nameSuggestsHeadphones(_ name: String?) -> Bool {
+        guard let name else { return false }
+        let normalized = name.folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+        let terms = [
+            "airpods", "earbuds", "earphones", "headphones", "headset",
+            "galaxy buds", "pixel buds", "powerbeats", "beats fit", "beats flex",
+            "beats solo", "beats studio", "イヤホン", "ヘッドホン", "ヘッドセット",
+        ]
+        return terms.contains { normalized.localizedStandardContains($0) }
+    }
+
+    private func outputStreams(of device: DeviceID) -> [AudioObjectID] {
+        let address = Self.address(kAudioDevicePropertyStreams)
+        return readObjectIDs(device, address)
+    }
+
+    private func activeDataSourceKind(of device: DeviceID) -> UInt32? {
+        let sourceAddress = Self.address(kAudioDevicePropertyDataSource)
+        guard var sourceID = readUInt32(device, sourceAddress) else { return nil }
+
+        var kind: UInt32 = 0
+        var kindAddress = Self.address(kAudioDevicePropertyDataSourceKindForID)
+        let status = withUnsafeMutablePointer(to: &sourceID) { sourcePointer in
+            withUnsafeMutablePointer(to: &kind) { kindPointer in
+                var translation = AudioValueTranslation(
+                    mInputData: UnsafeMutableRawPointer(sourcePointer),
+                    mInputDataSize: UInt32(MemoryLayout<UInt32>.size),
+                    mOutputData: UnsafeMutableRawPointer(kindPointer),
+                    mOutputDataSize: UInt32(MemoryLayout<UInt32>.size)
+                )
+                var size = UInt32(MemoryLayout<AudioValueTranslation>.size)
+                return AudioObjectGetPropertyData(device, &kindAddress, 0, nil, &size, &translation)
+            }
+        }
+        return status == noErr ? kind : nil
     }
 
     /// Prefers the virtual main volume, falling back to the main-element volume scalar.
@@ -118,12 +171,25 @@ public final class CoreAudioSystem: AudioSystem {
             Self.address(kAudioDevicePropertyDeviceIsAlive, scope: kAudioObjectPropertyScopeGlobal),
             Self.address(kAudioObjectPropertyControlList, scope: kAudioObjectPropertyScopeGlobal),
             Self.address(kAudioObjectPropertyName, scope: kAudioObjectPropertyScopeGlobal),
+            Self.address(kAudioDevicePropertyDataSource),
+            Self.address(kAudioDevicePropertyStreams),
         ]
         for channel in channels {
             addresses.append(Self.address(kAudioDevicePropertyVolumeScalar, element: channel))
             addresses.append(Self.address(kAudioDevicePropertyMute, element: channel))
         }
-        return addListeners(to: device, addresses: addresses, handler: handler)
+        let deviceToken = addListeners(to: device, addresses: addresses, handler: handler)
+        let streamTokens = outputStreams(of: device).map { stream in
+            addListeners(
+                to: stream,
+                addresses: [Self.address(kAudioStreamPropertyTerminalType, scope: kAudioObjectPropertyScopeGlobal)],
+                handler: handler
+            )
+        }
+        return ObservationToken {
+            deviceToken.cancel()
+            streamTokens.forEach { $0.cancel() }
+        }
     }
 
     private func addListeners(
@@ -180,5 +246,20 @@ public final class CoreAudioSystem: AudioSystem {
         var size = UInt32(MemoryLayout<UInt32>.size)
         guard AudioObjectGetPropertyData(object, &address, 0, nil, &size, &value) == noErr else { return nil }
         return value
+    }
+
+    private func readObjectIDs(_ object: AudioObjectID, _ address: AudioObjectPropertyAddress) -> [AudioObjectID] {
+        var address = address
+        var size: UInt32 = 0
+        guard AudioObjectGetPropertyDataSize(object, &address, 0, nil, &size) == noErr,
+              size >= UInt32(MemoryLayout<AudioObjectID>.size) else { return [] }
+        var values = [AudioObjectID](
+            repeating: kAudioObjectUnknown,
+            count: Int(size) / MemoryLayout<AudioObjectID>.size
+        )
+        let status = values.withUnsafeMutableBytes { buffer in
+            AudioObjectGetPropertyData(object, &address, 0, nil, &size, buffer.baseAddress!)
+        }
+        return status == noErr ? values : []
     }
 }

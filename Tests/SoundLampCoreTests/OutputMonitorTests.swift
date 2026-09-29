@@ -82,6 +82,7 @@ struct OutputMonitorTests {
         #expect(monitor.status.state == .audible(volume: 0.5))
         #expect(monitor.status.deviceID == airPods)
         #expect(monitor.status.deviceName == "AirPods Pro")
+        #expect(monitor.status.outputKind == .headphones)
         #expect(recorder.statuses.last?.deviceID == airPods)
     }
 
@@ -210,6 +211,20 @@ struct OutputMonitorTests {
         #expect(monitor.status.state == .silent(.volumeZero))
         #expect(system.deviceRegistrationCount[airPods] == 2)
         #expect(system.activeDeviceListeners(for: airPods) == 1)
+    }
+
+    @Test func outputKindChangingReRegistersListenersAndUpdatesStatus() {
+        let system = FakeAudioSystem()
+        system.devices[speakers] = .speakers(volume: 0)
+        system.defaultDevice = speakers
+        let (monitor, _) = makeMonitor(system)
+        #expect(monitor.status.outputKind == .other)
+
+        system.update(speakers) { $0.outputKind = .headphones }
+
+        #expect(monitor.status.outputKind == .headphones)
+        #expect(system.deviceRegistrationCount[speakers] == 2)
+        #expect(system.activeDeviceListeners(for: speakers) == 1)
     }
 
     @Test func resyncReRegistersEverything() {

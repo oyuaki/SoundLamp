@@ -8,7 +8,10 @@ struct SoundLampApp: App {
         MenuBarExtra {
             MenuContent(model: model)
         } label: {
-            Image(nsImage: MenuIcon.image(silent: model.status.state.isSilent))
+            Image(nsImage: MenuIcon.image(
+                silent: model.status.state.isSilent,
+                headphones: model.status.outputKind == .headphones
+            ))
         }
         .menuBarExtraStyle(.menu)
     }

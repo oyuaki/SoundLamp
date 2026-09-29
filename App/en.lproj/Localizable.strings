@@ -15,3 +15,5 @@
 
 "icon.silent" = "Silent";
 "icon.audible" = "Sound is on";
+"icon.headphones.silent" = "Headphones connected, silent";
+"icon.headphones.audible" = "Headphones connected, sound is on";

@@ -2,9 +2,15 @@ import Foundation
 
 public typealias DeviceID = UInt32
 
+public enum OutputDeviceKind: Equatable {
+    case headphones
+    case other
+}
+
 /// A point-in-time reading of an output device.
 public struct DeviceSnapshot: Equatable {
     public var name: String?
+    public var outputKind: OutputDeviceKind
     /// Main volume in 0...1, or `nil` when the device exposes no volume control.
     public var volume: Float?
     /// Mute state, or `nil` when the device exposes no mute control.
@@ -14,12 +20,14 @@ public struct DeviceSnapshot: Equatable {
 
     public init(
         name: String? = nil,
+        outputKind: OutputDeviceKind = .other,
         volume: Float? = nil,
         isMuted: Bool? = nil,
         canSetVolume: Bool = false,
         canSetMute: Bool = false
     ) {
         self.name = name
+        self.outputKind = outputKind
         self.volume = volume
         self.isMuted = isMuted
         self.canSetVolume = canSetVolume
@@ -70,6 +78,7 @@ public enum SoundState: Equatable {
 public struct OutputStatus: Equatable {
     public var deviceID: DeviceID?
     public var deviceName: String?
+    public var outputKind: OutputDeviceKind
     public var state: SoundState
     /// Whether "Set Volume to 0" can do anything right now.
     public var canSetToZero: Bool
@@ -77,6 +86,7 @@ public struct OutputStatus: Equatable {
     public init(deviceID: DeviceID?, snapshot: DeviceSnapshot?) {
         self.deviceID = deviceID
         self.deviceName = snapshot?.name
+        self.outputKind = snapshot?.outputKind ?? .other
         self.state = SoundState.evaluate(snapshot)
         self.canSetToZero = Self.canSetToZero(snapshot)
     }

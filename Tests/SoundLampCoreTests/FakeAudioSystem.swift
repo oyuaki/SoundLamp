@@ -95,7 +95,14 @@ extension DeviceSnapshot {
     }
 
     static func airPods(volume: Float = 0.5) -> DeviceSnapshot {
-        DeviceSnapshot(name: "AirPods Pro", volume: volume, isMuted: false, canSetVolume: true, canSetMute: true)
+        DeviceSnapshot(
+            name: "AirPods Pro",
+            outputKind: .headphones,
+            volume: volume,
+            isMuted: false,
+            canSetVolume: true,
+            canSetMute: true
+        )
     }
 
     /// e.g. HDMI / some USB interfaces: no volume control, optional mute.

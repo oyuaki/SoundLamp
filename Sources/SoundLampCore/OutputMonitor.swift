@@ -10,16 +10,18 @@ public final class OutputMonitor {
     private var systemToken: ObservationToken?
     private var deviceToken: ObservationToken?
     private var observedDevice: DeviceID?
-    /// Which controls the device exposed when its listeners were attached.
-    private var observedShape: ControlShape?
+    /// Device details that determine which property listeners should be attached.
+    private var observedShape: ObservationShape?
 
-    private struct ControlShape: Equatable {
+    private struct ObservationShape: Equatable {
         var hasVolume: Bool
         var hasMute: Bool
+        var outputKind: OutputDeviceKind?
 
         init(_ snapshot: DeviceSnapshot?) {
             hasVolume = snapshot?.volume != nil
             hasMute = snapshot?.isMuted != nil
+            outputKind = snapshot?.outputKind
         }
     }
 
@@ -76,7 +78,7 @@ public final class OutputMonitor {
         detachDevice()
         observedDevice = device
         guard let device else { return }
-        observedShape = ControlShape(system.snapshot(of: device))
+        observedShape = ObservationShape(system.snapshot(of: device))
         deviceToken = system.observeDevice(device) { [weak self] in
             self?.deviceDidChange(device)
         }
@@ -94,7 +96,7 @@ public final class OutputMonitor {
         guard device == observedDevice else { return }
         // Controls can appear after a device connects (e.g. Bluetooth);
         // re-register so listeners on the new controls take effect.
-        if ControlShape(system.snapshot(of: device)) != observedShape {
+        if ObservationShape(system.snapshot(of: device)) != observedShape {
             attach(to: device)
         }
         refresh()

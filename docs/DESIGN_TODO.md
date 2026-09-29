@@ -1,7 +1,7 @@
 # DESIGN_TODO
 
 SoundLamp に必要な画像の一覧です。ファイルを所定の場所に置くだけで反映されます（`Contents.json` は作成済みなので編集不要）。
-画像が無い間は、メニューバーは SF Symbols（`speaker.slash.fill` / 青の `speaker.wave.2.fill`）で表示されます。
+画像が無い間は、メニューバーは SF Symbols（`speaker.slash.fill` / 青の `speaker.wave.2.fill` / ヘッドホン時は `headphones`）で表示されます。
 
 共通仕様：PNG、sRGB、透過あり。ファイル名は下記のとおり正確に（大文字小文字も一致させる）。
 
@@ -21,6 +21,10 @@ SoundLamp に必要な画像の一覧です。ファイルを所定の場所に�
 | 無音 | 同上 | `MenuIconSilent@2x.png` | 36 × 36 |
 | 音あり | `App/Assets.xcassets/MenuIconAudible.imageset/` | `MenuIconAudible.png` | 18 × 18 |
 | 音あり | 同上 | `MenuIconAudible@2x.png` | 36 × 36 |
+| ヘッドホン・無音 | `App/Assets.xcassets/MenuIconHeadphonesSilent.imageset/` | `MenuIconHeadphonesSilent.png` | 18 × 18 |
+| ヘッドホン・無音 | 同上 | `MenuIconHeadphonesSilent@2x.png` | 36 × 36 |
+| ヘッドホン・音あり | `App/Assets.xcassets/MenuIconHeadphonesAudible.imageset/` | `MenuIconHeadphonesAudible.png` | 18 × 18 |
+| ヘッドホン・音あり | 同上 | `MenuIconHeadphonesAudible@2x.png` | 36 × 36 |
 
 ### MenuIconSilent（無音）
 - **テンプレート画像**：黒（#000000）＋ アルファのみで描く。色は使わない
@@ -34,6 +38,10 @@ SoundLamp に必要な画像の一覧です。ファイルを所定の場所に�
 - 1枚でライト/ダーク両方のメニューバーで視認できること（白・黒どちらの背景でも沈まない青）
 - 無音アイコンとは**形も変える**（色覚に頼らず区別できるように）
 - サイズ・余白は無音アイコンと揃える
+
+### MenuIconHeadphonesSilent / MenuIconHeadphonesAudible（イヤホン・ヘッドホン接続中）
+- どちらも**テンプレート画像**（黒＋アルファのみ。`template-rendering-intent: template` 設定済み）
+- 音ありは中央に波形を入れ、無音は波形なし。色ではなく形で区別する
 
 ## 2. アプリアイコン
 

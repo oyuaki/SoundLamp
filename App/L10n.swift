@@ -22,6 +22,16 @@ enum L10n {
 
     static var iconSilent: String { tr("icon.silent") }
     static var iconAudible: String { tr("icon.audible") }
+    static var iconHeadphonesSilent: String { tr("icon.headphones.silent") }
+    static var iconHeadphonesAudible: String { tr("icon.headphones.audible") }
+    static func iconDescription(silent: Bool, headphones: Bool) -> String {
+        switch (headphones, silent) {
+        case (false, true): return iconSilent
+        case (false, false): return iconAudible
+        case (true, true): return iconHeadphonesSilent
+        case (true, false): return iconHeadphonesAudible
+        }
+    }
 
     private static func tr(_ key: String) -> String {
         NSLocalizedString(key, comment: "")

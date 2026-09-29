@@ -37,12 +37,18 @@ export_png() {
 
 silent_dir="$assets_dir/MenuIconSilent.imageset"
 audible_dir="$assets_dir/MenuIconAudible.imageset"
+headphones_silent_dir="$assets_dir/MenuIconHeadphonesSilent.imageset"
+headphones_audible_dir="$assets_dir/MenuIconHeadphonesAudible.imageset"
 app_dir="$assets_dir/AppIcon.appiconset"
 
 export_png "$design_dir/MenuIconSilent.svg" 18 "$silent_dir/MenuIconSilent.png"
 export_png "$design_dir/MenuIconSilent.svg" 36 "$silent_dir/MenuIconSilent@2x.png"
 export_png "$design_dir/MenuIconAudible.svg" 18 "$audible_dir/MenuIconAudible.png"
 export_png "$design_dir/MenuIconAudible.svg" 36 "$audible_dir/MenuIconAudible@2x.png"
+export_png "$design_dir/MenuIconHeadphonesSilent.svg" 18 "$headphones_silent_dir/MenuIconHeadphonesSilent.png"
+export_png "$design_dir/MenuIconHeadphonesSilent.svg" 36 "$headphones_silent_dir/MenuIconHeadphonesSilent@2x.png"
+export_png "$design_dir/MenuIconHeadphonesAudible.svg" 18 "$headphones_audible_dir/MenuIconHeadphonesAudible.png"
+export_png "$design_dir/MenuIconHeadphonesAudible.svg" 36 "$headphones_audible_dir/MenuIconHeadphonesAudible@2x.png"
 
 export_png "$design_dir/AppIconSmall.svg" 16 "$app_dir/icon_16x16.png"
 export_png "$design_dir/AppIconSmall.svg" 32 "$app_dir/icon_16x16@2x.png"

@@ -15,3 +15,5 @@
 
 "icon.silent" = "無音";
 "icon.audible" = "音が出ます";
+"icon.headphones.silent" = "イヤホン接続中、無音";
+"icon.headphones.audible" = "イヤホン接続中、音が出ます";
