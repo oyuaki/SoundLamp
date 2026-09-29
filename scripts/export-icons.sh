@@ -47,7 +47,7 @@ export_png "$design_dir/MenuIconAudible.svg" 36 "$audible_dir/MenuIconAudible@2x
 export_png "$design_dir/AppIconSmall.svg" 16 "$app_dir/icon_16x16.png"
 export_png "$design_dir/AppIconSmall.svg" 32 "$app_dir/icon_16x16@2x.png"
 export_png "$design_dir/AppIconSmall.svg" 32 "$app_dir/icon_32x32.png"
-export_png "$design_dir/AppIconSmall.svg" 64 "$app_dir/icon_32x32@2x.png"
+export_png "$design_dir/AppIcon.svg" 64 "$app_dir/icon_32x32@2x.png"
 export_png "$design_dir/AppIcon.svg" 128 "$app_dir/icon_128x128.png"
 export_png "$design_dir/AppIcon.svg" 256 "$app_dir/icon_128x128@2x.png"
 export_png "$design_dir/AppIcon.svg" 256 "$app_dir/icon_256x256.png"
