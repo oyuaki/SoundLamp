@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Build and test
+        run: |
+          xcodebuild \
+            -project SoundLamp.xcodeproj \
+            -scheme SoundLamp \
+            -destination 'platform=macOS' \
+            CODE_SIGN_IDENTITY="-" \
+            test
+
+      - name: Build universal Release
+        run: |
+          xcodebuild \
+            -project SoundLamp.xcodeproj \
+            -scheme SoundLamp \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath build \
+            ARCHS="arm64 x86_64" \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGN_IDENTITY="-" \
+            build
+          lipo -info build/Build/Products/Release/SoundLamp.app/Contents/MacOS/SoundLamp
+
+      - name: Swift package tests
+        run: swift test

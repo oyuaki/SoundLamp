@@ -1,0 +1,17 @@
+"status.noDevice" = "No output device";
+"status.silent.muted" = "Silent (Muted)";
+"status.silent.volumeZero" = "Silent (Volume 0)";
+"status.audible.percent" = "Sound is on (%d%%)";
+"status.audible.unknown" = "Sound is on (volume unavailable)";
+
+"device.none" = "Output: None";
+"device.unknown" = "Unknown device";
+"device.format" = "Output: %@";
+
+"menu.setToZero" = "Set Volume to 0";
+"menu.launchAtLogin" = "Launch at Login";
+"menu.about" = "About SoundLamp";
+"menu.quit" = "Quit SoundLamp";
+
+"icon.silent" = "Silent";
+"icon.audible" = "Sound is on";

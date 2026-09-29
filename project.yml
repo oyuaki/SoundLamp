@@ -1,0 +1,89 @@
+name: SoundLamp
+
+options:
+  bundleIdPrefix: io.github.oyuaki
+  deploymentTarget:
+    macOS: "13.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+
+settings:
+  base:
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+    # Ad-hoc signing; see .github/workflows/release.yml for Developer ID notes.
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "-"
+    DEVELOPMENT_TEAM: ""
+  configs:
+    Release:
+      ONLY_ACTIVE_ARCH: NO
+      ARCHS: "$(ARCHS_STANDARD)"
+
+targets:
+  SoundLampCore:
+    type: library.static
+    platform: macOS
+    sources:
+      - Sources/SoundLampCore
+    settings:
+      base:
+        PRODUCT_NAME: SoundLampCore
+
+  SoundLamp:
+    type: application
+    platform: macOS
+    sources:
+      - path: App
+        excludes:
+          - Info.plist
+    dependencies:
+      - target: SoundLampCore
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: SoundLamp
+        CFBundleName: SoundLamp
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, ja]
+        LSUIElement: true
+        LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
+        LSApplicationCategoryType: public.app-category.utilities
+        NSHumanReadableCopyright: "Copyright © 2026 oyuaki. MIT License."
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.oyuaki.SoundLamp
+        PRODUCT_NAME: SoundLamp
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_HARDENED_RUNTIME: YES
+        COMBINE_HIDPI_IMAGES: YES
+
+  SoundLampCoreTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Tests/SoundLampCoreTests
+    dependencies:
+      - target: SoundLampCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.oyuaki.SoundLampCoreTests
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  SoundLamp:
+    build:
+      targets:
+        SoundLamp: all
+        SoundLampCoreTests: [test]
+    test:
+      targets:
+        - SoundLampCoreTests
+    run:
+      config: Debug
+    archive:
+      config: Release

@@ -1,0 +1,17 @@
+"status.noDevice" = "出力デバイスなし";
+"status.silent.muted" = "無音（ミュート）";
+"status.silent.volumeZero" = "無音（音量0）";
+"status.audible.percent" = "音が出ます（%d%%）";
+"status.audible.unknown" = "音が出ます（音量不明）";
+
+"device.none" = "出力：なし";
+"device.unknown" = "不明なデバイス";
+"device.format" = "出力：%@";
+
+"menu.setToZero" = "音量を0にする";
+"menu.launchAtLogin" = "ログイン時に起動";
+"menu.about" = "SoundLampについて";
+"menu.quit" = "終了";
+
+"icon.silent" = "無音";
+"icon.audible" = "音が出ます";

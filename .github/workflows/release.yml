@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Build, ad-hoc sign and package
+        run: scripts/package.sh "${GITHUB_REF_NAME#v}"
+
+      # --- Future: Developer ID signing & notarization -------------------------
+      # Replace the ad-hoc signing above with the steps below once an Apple
+      # Developer account is available. Required repository secrets:
+      #   DEVELOPER_ID_CERT_P12     base64-encoded "Developer ID Application" .p12
+      #   DEVELOPER_ID_CERT_PASSWORD password of the .p12
+      #   DEVELOPER_ID_NAME         e.g. "Developer ID Application: Your Name (TEAMID)"
+      #   APPLE_ID / APPLE_TEAM_ID / APPLE_APP_PASSWORD  (app-specific password)
+      #
+      # - name: Import signing certificate
+      #   env:
+      #     CERT_P12: ${{ secrets.DEVELOPER_ID_CERT_P12 }}
+      #     CERT_PASSWORD: ${{ secrets.DEVELOPER_ID_CERT_PASSWORD }}
+      #   run: |
+      #     KEYCHAIN="$RUNNER_TEMP/build.keychain-db"
+      #     security create-keychain -p "" "$KEYCHAIN"
+      #     security set-keychain-settings -lut 21600 "$KEYCHAIN"
+      #     security unlock-keychain -p "" "$KEYCHAIN"
+      #     echo "$CERT_P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+      #     security import "$RUNNER_TEMP/cert.p12" -k "$KEYCHAIN" -P "$CERT_PASSWORD" -T /usr/bin/codesign
+      #     security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
+      #     security list-keychains -d user -s "$KEYCHAIN"
+      #
+      # - name: Sign with Developer ID
+      #   run: |
+      #     APP=build/Build/Products/Release/SoundLamp.app
+      #     codesign --force --deep --options runtime --timestamp \
+      #       --sign "${{ secrets.DEVELOPER_ID_NAME }}" "$APP"
+      #     # Then rebuild dist/*.zip and dist/*.dmg from the re-signed app
+      #     # (and sign the dmg: codesign --sign "..." --timestamp dist/*.dmg).
+      #
+      # - name: Notarize and staple
+      #   run: |
+      #     for f in dist/*.dmg; do
+      #       xcrun notarytool submit "$f" \
+      #         --apple-id "${{ secrets.APPLE_ID }}" \
+      #         --team-id "${{ secrets.APPLE_TEAM_ID }}" \
+      #         --password "${{ secrets.APPLE_APP_PASSWORD }}" \
+      #         --wait
+      #       xcrun stapler staple "$f"
+      #     done
+      # -------------------------------------------------------------------------
+
+      - name: Upload to GitHub Releases
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/*.dmg dist/*.zip \
+            --title "SoundLamp $GITHUB_REF_NAME" \
+            --generate-notes
