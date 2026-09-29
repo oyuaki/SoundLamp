@@ -6,17 +6,13 @@ A menu bar app that shows whether your Mac's volume is at 0.
 
 | State | Icon |
 | --- | --- |
-| Silent (volume 0 or muted) | Regular icon |
-| Sound on | Blue icon |
+| Silent (volume 0 or muted) | <img src="docs/screenshots/menubar-silent.png" height="24" alt="Silent"> Regular icon |
+| Sound on | <img src="docs/screenshots/menubar-audible.png" height="24" alt="Sound on"> Blue icon |
 | Headphones | Headphone icon (with a waveform when sound is on) |
 
 The menu shows the volume and output device, plus "Set Volume to 0" and "Launch at Login".
 
 Requires macOS 13 or later.
-
-<!-- Screenshots will go in docs/screenshots/
-![SoundLamp](docs/screenshots/menu.png)
--->
 
 ## Install
 

@@ -6,17 +6,13 @@ Macの音量が0かどうかを、メニューバーのアイコンで確認す�
 
 | 状態 | アイコン |
 | --- | --- |
-| 無音（音量0・ミュート） | 通常のアイコン |
-| 音が出る | 青いアイコン |
+| 無音（音量0・ミュート） | <img src="docs/screenshots/menubar-silent.png" height="24" alt="無音"> 通常のアイコン |
+| 音が出る | <img src="docs/screenshots/menubar-audible.png" height="24" alt="音が出る"> 青いアイコン |
 | イヤホン・ヘッドホン | ヘッドホンのアイコン（音が出るときは中央に波形） |
 
 メニューには音量と出力デバイス名、「音量を0にする」「ログイン時に起動」があります。
 
 macOS 13以降。
-
-<!-- スクリーンショットは docs/screenshots/ に追加予定
-![SoundLamp](docs/screenshots/menu.png)
--->
 
 ## インストール
 
